@@ -71,3 +71,12 @@ pipeline = Pipeline([
     # train on TF-IDF vectors w/ Naive Bayes classifier
     ('classifier', MultinomialNB()),
 ])
+
+# Pedictions
+msg_train, msg_test, label_train, label_test = train_test_split(
+    train_tweets['tweet'], train_tweets['label'], test_size=0.2)
+pipeline.fit(msg_train, label_train)
+predictions = pipeline.predict(msg_test)
+print(classification_report(predictions, label_test))
+print(confusion_matrix(predictions, label_test))
+print(accuracy_score(predictions, label_test))
