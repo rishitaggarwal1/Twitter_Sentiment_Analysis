@@ -33,6 +33,8 @@ def form_sentence(tweet):
 print(form_sentence(train_tweets['tweet'].iloc[10]))
 print(train_tweets['tweet'].iloc[10])
 
+# Removing Stop Words
+
 
 def no_user_alpha(tweet):
     tweet_list = [ele for ele in tweet.split() if ele != 'user']
@@ -46,6 +48,8 @@ def no_user_alpha(tweet):
 print(no_user_alpha(form_sentence(train_tweets['tweet'].iloc[10])))
 print(train_tweets['tweet'].iloc[10])
 
+# Normalization
+
 
 def normalization(tweet_list):
     lem = WordNetLemmatizer()
@@ -58,3 +62,12 @@ def normalization(tweet_list):
 
 tweet_list = 'I was playing with my friends with whom I used to play, when you called me yesterday'.split()
 print(normalization(tweet_list))
+
+
+# Pipelining
+pipeline = Pipeline([
+    ('bow', CountVectorizer()),  # strings to token integer counts
+    ('tfidf', TfidfTransformer()),  # integer counts to weighted TF-IDF scores
+    # train on TF-IDF vectors w/ Naive Bayes classifier
+    ('classifier', MultinomialNB()),
+])
